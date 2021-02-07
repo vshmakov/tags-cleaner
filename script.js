@@ -1,5 +1,5 @@
-import {getDownloadLink, readFile, unicodeToWin1251_UrlEncoded} from "./files.js"
-
+import {getDownloadLink, readFile, unicodeToWin1251_UrlEncoded} from "./functions.js"
+//abc
 const encoding = 'windows-1251';
 
 new class {
