@@ -1,4 +1,7 @@
-import {getDownloadButton, readFile} from "./files.js"
+import {getDownloadLink, readFile, unicodeToWin1251_UrlEncoded} from "./files.js"
+import {xml} from "./xml/xml.js";
+
+const encoding = 'windows-1251';
 
 new class {
     constructor() {
@@ -7,24 +10,22 @@ new class {
             .addEventListener("change", this.onChange.bind(this), false)
     }
 
-    onChange(event) {
-        this.render(event.target.files)
-    }
-
-    async render(files) {
+    async onChange(event) {
         this.download.innerHTML = ''
 
-        if (0 !== files.length) {
-            this.download.innerHTML = '<h1>Скачать файлы</h1>'
+        for (const file of event.target.files) {
+            const text = await readFile(file, encoding)
+            this.renderDownloadLink(file.name, text)
         }
+    }
 
-        for (const file of files) {
-            const div = document.createElement('div')
-            const text = await readFile(file)
-            const button = getDownloadButton(file.name, this.getCleanedText(text))
-            div.append(button)
-            this.download.append(div)
-        }
+    renderDownloadLink(fileName, text) {
+        const cleanedText = this.getCleanedText(text)
+        const encodedText = unicodeToWin1251_UrlEncoded(cleanedText)
+        const link = getDownloadLink(fileName, encodedText, encoding)
+        const div = document.createElement('div')
+        div.append(link)
+        this.download.append(div)
     }
 
     getCleanedText(text) {
