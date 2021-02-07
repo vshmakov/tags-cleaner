@@ -5,7 +5,7 @@ const encoding = 'windows-1251';
 new class {
     constructor() {
         this.download = document.getElementById("download")
-        this.download.innerText=123
+        this.download.innerText=234
         document.querySelector('input[type=file]')
             .addEventListener("change", this.onChange.bind(this), false)
     }
