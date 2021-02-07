@@ -3,7 +3,6 @@ import {getDownloadButton, readFile} from "./files.js"
 new class {
     constructor() {
         this.download = document.getElementById("download")
-        this.files = []
         document.querySelector('input[type=file]')
             .addEventListener("change", this.onChange.bind(this), false)
     }
@@ -21,20 +20,23 @@ new class {
 
         for (const file of files) {
             const div = document.createElement('div')
-            const button = getDownloadButton(file.name, await this.getCleanedFileContent(file))
+            const text = await readFile(file)
+            const button = getDownloadButton(file.name, this.getCleanedText(text))
             div.append(button)
             this.download.append(div)
         }
     }
 
-    async getCleanedFileContent(file) {
+    getCleanedText(text) {
         const parser = new DOMParser()
-        const text = await readFile(file)
         const element = parser.parseFromString(text, "application/xml")
 
-        for (let i = 1; i <= 10; i++) {
-            const tags = element.querySelectorAll(`ИнфПолФХЖ3`)
-        console.log(tags)
+        for (let i = 1; i <= 100; i++) {
+            const tags = element.querySelectorAll(`ИнфПолФХЖ${i}`)
+
+            for (const tag of tags) {
+                tag.remove()
+            }
         }
 
         const serializer = new XMLSerializer()
