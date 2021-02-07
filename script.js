@@ -1,5 +1,4 @@
 import {getDownloadLink, readFile, unicodeToWin1251_UrlEncoded} from "./files.js"
-import {xml} from "./xml/xml.js";
 
 const encoding = 'windows-1251';
 

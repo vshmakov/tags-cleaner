@@ -289,7 +289,7 @@ export function unicodeToWin1251_UrlEncoded(string) {
             throw `Character ${string.charAt(i)} isn't supported by win1251!`;
         }
 
-        signs.push('%' + signMap[charCode].toString(16));
+        signs.push(`%${signMap[charCode].toString(16)}`);
     }
 
     return signs.join('')
