@@ -12,6 +12,15 @@
     <input type="file" multiple>
 </form>
 <div id="download"></div>
-<script type="module" src="script.js"></script>
+<script>
+    function loadWithoutCaching(path) {
+        const script = document.createElement('script')
+        script.setAttribute('type', 'module')
+        script.setAttribute('src', `${path}?hash=${new Date().getTime()}`)
+        document.body.append(script)
+    }
+
+    loadWithoutCaching('./script.js')
+</script>
 </body>
 </html>

@@ -1,10 +1,11 @@
 import {getDownloadLink, readFile, unicodeToWin1251_UrlEncoded} from "./functions.js"
-//abc
+
 const encoding = 'windows-1251';
 
 new class {
     constructor() {
         this.download = document.getElementById("download")
+        this.download.innerText=123
         document.querySelector('input[type=file]')
             .addEventListener("change", this.onChange.bind(this), false)
     }
